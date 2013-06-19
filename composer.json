@@ -1,0 +1,19 @@
+{
+    "name": "appventus/assetic-injector-bundle",
+    "type": "symfony-bundle",
+    "description": "This bundle allow you to define global javascripts and stylesheets",
+    "keywords": ["assetic", "injector"],
+    "homepage": "http://appventus.com",
+    "license": "MIT",
+    "authors": [
+        {"name": "Paul Andrieux", "email": "paul@appventus.com"}
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-0": { "AppVentus\\AvAsseticInjectorBundle": "" }
+    },
+    "target-dir": "AppVentus/AvAsseticInjectorBundle",
+    "minimum-stability": "dev"
+}

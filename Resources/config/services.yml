@@ -1,0 +1,25 @@
+parameters:
+    assetic.twig_extension.class: "AppVentus\AsseticInjectorBundle\Twig\AsseticExtension"
+    av_assetic_injector.collector.class: "AppVentus\AsseticInjectorBundle\AssetsCollector\Collector"
+
+services:
+
+    av_assetic_injector.collector:
+        class: %av_assetic_injector.collector.class%
+        arguments: [@service_container]
+
+    av_assetic_injector.collector_engine.require_all:
+        class: "AppVentus\AsseticInjectorBundle\AssetsCollector\RequireAll"
+
+    assetic_injector.require_all:
+        alias: av_assetic_injector.collector_engine.require_all
+
+    assetic.twig_extension:
+        class: %assetic.twig_extension.class%
+        public: false
+        tags:
+            - {name: twig.extension}
+            - {name: assetic.templating.twig}
+        arguments: [@assetic.asset_factory, @templating.name_parser, %assetic.use_controller%, %assetic.twig_extension.functions%, %assetic.bundles%, @assetic.value_supplier ]
+        calls:
+            - [ setCollector, [ @av_assetic_injector.collector ] ]
