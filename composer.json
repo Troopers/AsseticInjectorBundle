@@ -12,8 +12,8 @@
         "php": ">=5.3.2"
     },
     "autoload": {
-        "psr-0": { "AppVentus\\AvAsseticInjectorBundle": "" }
+        "psr-0": { "AppVentus\\AsseticInjectorBundle": "" }
     },
-    "target-dir": "AppVentus/AvAsseticInjectorBundle",
+    "target-dir": "AppVentus/AsseticInjectorBundle",
     "minimum-stability": "dev"
 }
