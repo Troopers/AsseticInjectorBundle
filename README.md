@@ -5,6 +5,12 @@ The AsseticInjectorBundle allow you to automaticly include javascripts and style
 
 ## Install
 
+With Composer :
+
+
+Add this line in your composer.json file :
+
+    "appventus/assetic-injector-bundle": "dev-master"
 
 Declare the bundle in your AppKernel.php:
 
