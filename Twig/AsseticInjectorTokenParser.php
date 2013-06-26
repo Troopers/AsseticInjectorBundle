@@ -90,9 +90,15 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
 
     public function parseAndInject(\Twig_Token $token)
     {
-        $inputs = array();
-        $filters = array();
-        $name = null;
+        $inputs = $filters = $injectorLocationsAvailables = array();
+        $name = $injectorLocation = null;
+
+        foreach ($this->injectedAssets as $tag => $assets) {
+            foreach ($assets as $injectorLocation => $asset) {
+                $injectorLocationsAvailables[$injectorLocation] = $injectorLocation;
+            }
+        }
+
         $attributes = array(
             'output'   => $this->output,
             'var_name' => 'asset_url',
@@ -109,6 +115,11 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
                 $stream->next();
                 $stream->expect(\Twig_Token::OPERATOR_TYPE, '=');
                 $filters = array_merge($filters, array_filter(array_map('trim', explode(',', $stream->expect(\Twig_Token::STRING_TYPE)->getValue()))));
+            } elseif ($stream->test(\Twig_Token::NAME_TYPE, 'injector')) {
+                // injector='header'
+                $stream->next();
+                $stream->expect(\Twig_Token::OPERATOR_TYPE, '=');
+                $injectorLocation = $stream->expect(\Twig_Token::STRING_TYPE)->getValue();
             } elseif ($stream->test(\Twig_Token::NAME_TYPE, 'output')) {
                 // output='js/packed/*.js' OR output='js/core.js'
                 $stream->next();
@@ -167,8 +178,14 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
 
         $stream->expect(\Twig_Token::BLOCK_END_TYPE);
 
-        if (array_key_exists($this->tag, $this->injectedAssets)) {
-            $inputs = array_merge($inputs, $this->injectedAssets[$this->tag]);
+        //INJECT
+        if (array_key_exists($this->tag, $this->injectedAssets) and in_array($injectorLocation, $injectorLocationsAvailables)) {
+            if (!empty($this->injectedAssets[$this->tag][$injectorLocation])) {
+                if(!is_array($this->injectedAssets[$this->tag][$injectorLocation])) {
+                    $this->injectedAssets[$this->tag][$injectorLocation] = array($this->injectedAssets[$this->tag][$injectorLocation]);
+                }
+                $inputs = array_merge($inputs, $this->injectedAssets[$this->tag][$injectorLocation]);
+            }
         }
         if ($this->single && 1 < count($inputs)) {
             $inputs = array_slice($inputs, -1);

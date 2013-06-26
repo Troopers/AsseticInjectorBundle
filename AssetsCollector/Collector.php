@@ -32,9 +32,8 @@ class Collector
         $injectArray = array();
         foreach($finder as $file) {
             $json = file_get_contents($file);
-
             if (is_array(json_decode($json, true))) {
-                $injectArray = array_merge($injectArray, json_decode($json, true));
+                $injectArray = array_merge_recursive($injectArray, json_decode($json, true));
             }
         }
 

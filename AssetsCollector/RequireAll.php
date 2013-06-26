@@ -9,7 +9,7 @@ class RequireAll
     {
         foreach($item as $type => $resource) {
             foreach($resource as $k => $path) {
-                $this->resources[$type][] = $path;
+                $this->resources[$type][$k] = $path;
             }
         }
     }
