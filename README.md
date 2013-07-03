@@ -1,7 +1,9 @@
 AsseticInjectorBundle
 =======
 
-The AsseticInjectorBundle allow you to automaticly include javascripts and stylesheets anywhere in your project
+The AsseticInjectorBundle allows you to automatically include javascripts and stylesheets anywhere in your project.
+This bundle will scan every registered bundles and search for an assetic_injector.json file. From this file, the injector will collect the resources and inject them into the assetic engine.
+To include them, you have to define the tag (foot, head, custom, actually the one you choose) and add the tag in the wanted assetic block.
 
 ## Install
 
@@ -20,21 +22,44 @@ Declare the bundle in your AppKernel.php:
             new AppVentus\AsseticInjectorBundle\AvAsseticInjectorBundle(),
             [...]
 
-Then declare a assetic_injector.json in the Resource/config folder of your application or bundle:
+Then declare an assetic_injector.json in the Resource/config folder of your application or bundle:
 
     {
         "require_all":
         {
             "javascripts":
             {
-                "resource": "@MyBundle/Resources/public/js/myscript.js"
+                "foot": "@MyBundle/Resources/public/js/myscript.js"
             },
             "stylesheets":
             {
-                "resource": "@MyBundle/Resources/public/css/mystyle.css"
+                "head": "@MyBundle/Resources/public/css/mystyle.css"
             }
         }
     }
 
+
+Now, to include the resources, just add the name of the resource tag (foot, head etc) in your assetic's block.
+
+For example, this code ... 
+
+        {% javascripts injector="head"
+            '@MyAcmeDemoBundle/Resources/public/jsloremipsumdolorsitamet.js'
+         %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+
+will inject assetic_injector.json and regarding to the example wrote before equals to :
+
+        {% javascripts injector="head"
+            '@MyAcmeDemoBundle/Resources/public/jsloremipsumdolorsitamet.js'
+            '@MyBundle/Resources/public/js/myscript.js'
+         %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+So, no more needs to include javascript or stylesheets from assetic injector's ready bundles !
+Just add the tag and here we are !
 
 Enjoy !
