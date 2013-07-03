@@ -6,7 +6,14 @@
     "homepage": "http://appventus.com",
     "license": "MIT",
     "authors": [
-        {"name": "Paul Andrieux", "email": "paul@appventus.com"}
+        {
+            "name": "Paul Andrieux",
+            "email": "paul@appventus.com"
+        },
+        {
+            "name": "Leny Bernard",
+            "email": "leny@appventus.com"
+        }
     ],
     "require": {
         "php": ">=5.3.2"
