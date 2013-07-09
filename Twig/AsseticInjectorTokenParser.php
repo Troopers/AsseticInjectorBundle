@@ -178,13 +178,17 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
 
         $stream->expect(\Twig_Token::BLOCK_END_TYPE);
 
+        $injectorLocationArray = explode(",", $injectorLocation);
         //INJECT
-        if (array_key_exists($this->tag, $this->injectedAssets) and in_array($injectorLocation, $injectorLocationsAvailables)) {
-            if (!empty($this->injectedAssets[$this->tag][$injectorLocation])) {
-                if(!is_array($this->injectedAssets[$this->tag][$injectorLocation])) {
-                    $this->injectedAssets[$this->tag][$injectorLocation] = array($this->injectedAssets[$this->tag][$injectorLocation]);
+        foreach ($injectorLocationArray as $injectorLocation) {
+            $injectorLocation = trim($injectorLocation);
+            if (array_key_exists($this->tag, $this->injectedAssets) and in_array($injectorLocation, $injectorLocationsAvailables)) {
+                if (!empty($this->injectedAssets[$this->tag][$injectorLocation])) {
+                    if(!is_array($this->injectedAssets[$this->tag][$injectorLocation])) {
+                        $this->injectedAssets[$this->tag][$injectorLocation] = array($this->injectedAssets[$this->tag][$injectorLocation]);
+                    }
+                    $inputs = array_merge($inputs, $this->injectedAssets[$this->tag][$injectorLocation]);
                 }
-                $inputs = array_merge($inputs, $this->injectedAssets[$this->tag][$injectorLocation]);
             }
         }
         if ($this->single && 1 < count($inputs)) {
