@@ -25,12 +25,12 @@ class Collector
         $finder = new Finder();
         $finder->files()->name('assetic_injector.json');
         foreach ($this->container->get('kernel')->getBundles() as $bundle) {
-            if (file_exists($bundle->getPath().'/Resources/config/')){
+            if (file_exists($bundle->getPath().'/Resources/config/')) {
                 $finder->in($bundle->getPath().'/Resources/config/');
             }
         }
         $injectArray = array();
-        foreach($finder as $file) {
+        foreach ($finder as $file) {
             $json = file_get_contents($file);
             if (is_array(json_decode($json, true))) {
                 $injectArray = array_merge_recursive($injectArray, json_decode($json, true));
