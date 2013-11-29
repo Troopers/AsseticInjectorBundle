@@ -94,8 +94,8 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
         $name = $injectorLocation = null;
 
         foreach ($this->injectedAssets as $tag => $assets) {
-            foreach ($assets as $injectorLocation => $asset) {
-                $injectorLocationsAvailables[$injectorLocation] = $injectorLocation;
+            foreach ($assets as $injectorPath => $asset) {
+                $injectorLocationsAvailables[$injectorPath] = $injectorPath;
             }
         }
 
@@ -178,16 +178,19 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
 
         $stream->expect(\Twig_Token::BLOCK_END_TYPE);
 
-        $injectorLocationArray = explode(",", $injectorLocation);
-        //INJECT
-        foreach ($injectorLocationArray as $injectorLocation) {
-            $injectorLocation = trim($injectorLocation);
-            if (array_key_exists($this->tag, $this->injectedAssets) and in_array($injectorLocation, $injectorLocationsAvailables)) {
-                if (!empty($this->injectedAssets[$this->tag][$injectorLocation])) {
-                    if(!is_array($this->injectedAssets[$this->tag][$injectorLocation])) {
-                        $this->injectedAssets[$this->tag][$injectorLocation] = array($this->injectedAssets[$this->tag][$injectorLocation]);
+        if ($injectorLocation) {
+            $injectorLocationArray = explode(",", $injectorLocation);
+
+            //INJECT
+            foreach ($injectorLocationArray as $injectorLocation) {
+                $injectorLocation = trim($injectorLocation);
+                if (array_key_exists($this->tag, $this->injectedAssets) and in_array($injectorLocation, $injectorLocationsAvailables)) {
+                    if (!empty($this->injectedAssets[$this->tag][$injectorLocation])) {
+                        if (!is_array($this->injectedAssets[$this->tag][$injectorLocation])) {
+                            $this->injectedAssets[$this->tag][$injectorLocation] = array($this->injectedAssets[$this->tag][$injectorLocation]);
+                        }
+                        $inputs = array_merge($inputs, $this->injectedAssets[$this->tag][$injectorLocation]);
                     }
-                    $inputs = array_merge($inputs, $this->injectedAssets[$this->tag][$injectorLocation]);
                 }
             }
         }
