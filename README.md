@@ -63,7 +63,3 @@ So, no more needs to include javascript or stylesheets from assetic injector's r
 Just add the tag and here we are !
 
 Enjoy !
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/AppVentus/asseticinjectorbundle/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
