@@ -72,7 +72,11 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
                 // this happens when the filename isn't a Bundle:* url
                 // but an absolute path instead
             }
-            $bundle = $templateRef ? $templateRef->get('bundle') : null;
+            try {
+                $bundle = $templateRef ? $templateRef->get('bundle') : null;
+            } catch (\InvalidArgumentException $e) {
+                $bundle = null;
+            }
             if ($bundle && !in_array($bundle, $this->enabledBundles)) {
                 throw new InvalidBundleException($bundle, "the {% {$this->getTag()} %} tag", $templateRef->getLogicalName(), $this->enabledBundles);
             }
