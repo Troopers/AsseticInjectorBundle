@@ -1,3 +1,9 @@
+[![AppVentus](https://github.com/AppVentus/AvAlertifyBundle/blob/master/Media/appventus.png)](http://appventus.com)
+
+
+[![Dependency Status](https://www.versioneye.com/php/appventus:assetic-injector-bundle/dev-master/badge.svg)](https://www.versioneye.com/php/appventus:assetic-injector-bundle/dev-master)
+=============
+
 AsseticInjectorBundle
 =======
 
@@ -41,7 +47,7 @@ Then declare an assetic_injector.json in the Resource/config folder of your appl
 
 Now, to include the resources, just add the name of the resource tag (foot, head etc) in your assetic's block.
 
-For example, this code ... 
+For example, this code ...
 
         {% javascripts injector="head"
             '@MyAcmeDemoBundle/Resources/public/jsloremipsumdolorsitamet.js'
