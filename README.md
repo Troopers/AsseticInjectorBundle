@@ -2,6 +2,8 @@
 
 
 [![Dependency Status](https://www.versioneye.com/php/appventus:assetic-injector-bundle/dev-master/badge.svg)](https://www.versioneye.com/php/appventus:assetic-injector-bundle/dev-master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d10e1e8e-8bd5-462e-994f-419bcfb7da78/mini.png)](https://insight.sensiolabs.com/projects/d10e1e8e-8bd5-462e-994f-419bcfb7da78)
+
 =============
 
 AsseticInjectorBundle
