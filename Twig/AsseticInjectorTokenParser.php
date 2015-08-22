@@ -11,7 +11,6 @@
 
 namespace AppVentus\AsseticInjectorBundle\Twig;
 
-
 use Assetic\Asset\AssetInterface;
 use Symfony\Bundle\AsseticBundle\Twig\AsseticTokenParser as BaseAsseticTokenParser;
 use Symfony\Bundle\AsseticBundle\Exception\InvalidBundleException;
@@ -29,7 +28,6 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
     private $templateNameParser;
     private $enabledBundles;
     private $injectedAssets;
-
 
     public function __construct(AssetFactory $factory, $tag, $output, $single = false, array $extensions = array())
     {
@@ -83,14 +81,12 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
         }
 
         return $this->parseAndInject($token);
-        // return parent::parse($token);
     }
 
     protected function createNode(AssetInterface $asset, \Twig_NodeInterface $body, array $inputs, array $filters, $name, array $attributes = array(), $lineno = 0, $tag = null)
     {
         return new AsseticNode($asset, $body, $inputs, $filters, $name, $attributes, $lineno, $tag);
     }
-
 
     public function parseAndInject(\Twig_Token $token)
     {
@@ -188,7 +184,7 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
             //INJECT
             foreach ($injectorLocationArray as $injectorLocation) {
                 $injectorLocation = trim($injectorLocation);
-                if (array_key_exists($this->tag, $this->injectedAssets) and in_array($injectorLocation, $injectorLocationsAvailables)) {
+                if (array_key_exists($this->tag, $this->injectedAssets) && in_array($injectorLocation, $injectorLocationsAvailables)) {
                     if (!empty($this->injectedAssets[$this->tag][$injectorLocation])) {
                         if (!is_array($this->injectedAssets[$this->tag][$injectorLocation])) {
                             $this->injectedAssets[$this->tag][$injectorLocation] = array($this->injectedAssets[$this->tag][$injectorLocation]);
