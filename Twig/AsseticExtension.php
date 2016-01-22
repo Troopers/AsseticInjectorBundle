@@ -21,9 +21,10 @@ use Symfony\Component\Templating\TemplateNameParserInterface;
 /**
  * Assetic extension.
  *
- * @author Kris Wallsmith <kris@symfony.com>
+ * @author Leny Bernard <leny@appventus.com>
+ * @author Paul Andrieux <paul@appventus.com>
  */
-class AsseticExtension extends BaseAsseticExtension
+class AsseticExtension extends BaseAsseticExtension implements \Twig_Extension_GlobalsInterface
 {
     private $useController;
     private $templateNameParser;
