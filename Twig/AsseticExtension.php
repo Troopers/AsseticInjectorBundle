@@ -9,20 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace AppVentus\AsseticInjectorBundle\Twig;
-
+namespace Troopers\AsseticInjectorBundle\Twig;
 
 use Assetic\Extension\Twig\AsseticExtension as BaseAsseticExtension;
-use Symfony\Bundle\AsseticBundle\Twig\AsseticNodeVisitor;
 use Assetic\Factory\AssetFactory;
 use Assetic\ValueSupplierInterface;
+use Symfony\Bundle\AsseticBundle\Twig\AsseticNodeVisitor;
 use Symfony\Component\Templating\TemplateNameParserInterface;
 
 /**
  * Assetic extension.
  *
- * @author Leny Bernard <leny@appventus.com>
- * @author Paul Andrieux <paul@appventus.com>
+ * @author Leny Bernard <leny@troopers.email>
+ * @author Paul Andrieux <paul@troopers.email>
  */
 class AsseticExtension extends BaseAsseticExtension implements \Twig_Extension_GlobalsInterface
 {
@@ -31,7 +30,7 @@ class AsseticExtension extends BaseAsseticExtension implements \Twig_Extension_G
     private $enabledBundles;
     private $collector;
 
-    public function __construct(AssetFactory $factory, TemplateNameParserInterface $templateNameParser, $useController = false, $functions = array(), $enabledBundles = array(), ValueSupplierInterface $valueSupplier = null)
+    public function __construct(AssetFactory $factory, TemplateNameParserInterface $templateNameParser, $useController = false, $functions = [], $enabledBundles = [], ValueSupplierInterface $valueSupplier = null)
     {
         parent::__construct($factory, $functions, $valueSupplier);
 
@@ -44,20 +43,21 @@ class AsseticExtension extends BaseAsseticExtension implements \Twig_Extension_G
     {
         $this->collector = $collector;
     }
+
     public function getTokenParsers()
     {
-        return array(
+        return [
             $this->createTokenParser('javascripts', 'js/*.js'),
             $this->createTokenParser('stylesheets', 'css/*.css'),
             $this->createTokenParser('image', 'images/*', true),
-        );
+        ];
     }
 
     public function getNodeVisitors()
     {
-        return array(
+        return [
             new AsseticNodeVisitor($this->templateNameParser, $this->enabledBundles),
-        );
+        ];
     }
 
     public function getGlobals()
@@ -70,8 +70,8 @@ class AsseticExtension extends BaseAsseticExtension implements \Twig_Extension_G
 
     private function createTokenParser($tag, $output, $single = false)
     {
-        $tokenParser = new AsseticInjectorTokenParser($this->factory, $tag, $output, $single, array('package'));
-        if (in_array($tag, array("stylesheets", "javascripts"))) {
+        $tokenParser = new AsseticInjectorTokenParser($this->factory, $tag, $output, $single, ['package']);
+        if (in_array($tag, ['stylesheets', 'javascripts'])) {
             $this->collector->injectAssets($tokenParser);
         }
         $tokenParser->setTemplateNameParser($this->templateNameParser);

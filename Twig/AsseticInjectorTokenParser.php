@@ -9,19 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
-namespace AppVentus\AsseticInjectorBundle\Twig;
+namespace Troopers\AsseticInjectorBundle\Twig;
 
 use Assetic\Asset\AssetInterface;
-use Symfony\Bundle\AsseticBundle\Twig\AsseticTokenParser as BaseAsseticTokenParser;
 use Symfony\Bundle\AsseticBundle\Exception\InvalidBundleException;
-use Symfony\Component\Templating\TemplateNameParserInterface;
 use Symfony\Bundle\AsseticBundle\Factory\AssetFactory;
 use Symfony\Bundle\AsseticBundle\Twig\AsseticNode;
+use Symfony\Bundle\AsseticBundle\Twig\AsseticTokenParser as BaseAsseticTokenParser;
+use Symfony\Component\Templating\TemplateNameParserInterface;
 
 /**
  * Assetic token parser.
- *
- * @author Kris Wallsmith <kris@symfony.com>
  */
 class AsseticInjectorTokenParser extends BaseAsseticTokenParser
 {
@@ -29,15 +27,14 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
     private $enabledBundles;
     private $injectedAssets;
 
-    public function __construct(AssetFactory $factory, $tag, $output, $single = false, array $extensions = array())
+    public function __construct(AssetFactory $factory, $tag, $output, $single = false, array $extensions = [])
     {
-
-        $this->factory    = $factory;
-        $this->tag        = $tag;
-        $this->output     = $output;
-        $this->single     = $single;
+        $this->factory = $factory;
+        $this->tag = $tag;
+        $this->output = $output;
+        $this->single = $single;
         $this->extensions = $extensions;
-        $this->injectedAssets = array();
+        $this->injectedAssets = [];
 
         parent::__construct($factory, $tag, $output, $single, $extensions);
     }
@@ -46,6 +43,7 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
     {
         $this->injectedAssets = $assets;
     }
+
     public function setTemplateNameParser(TemplateNameParserInterface $templateNameParser)
     {
         $this->templateNameParser = $templateNameParser;
@@ -83,14 +81,14 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
         return $this->parseAndInject($token);
     }
 
-    protected function createNode(AssetInterface $asset, \Twig_NodeInterface $body, array $inputs, array $filters, $name, array $attributes = array(), $lineno = 0, $tag = null)
+    protected function createNode(AssetInterface $asset, \Twig_NodeInterface $body, array $inputs, array $filters, $name, array $attributes = [], $lineno = 0, $tag = null)
     {
         return new AsseticNode($asset, $body, $inputs, $filters, $name, $attributes, $lineno, $tag);
     }
 
     public function parseAndInject(\Twig_Token $token)
     {
-        $inputs = $filters = $injectorLocationsAvailables = array();
+        $inputs = $filters = $injectorLocationsAvailables = [];
         $name = $injectorLocation = null;
 
         foreach ($this->injectedAssets as $tag => $assets) {
@@ -99,11 +97,11 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
             }
         }
 
-        $attributes = array(
+        $attributes = [
             'output'   => $this->output,
             'var_name' => 'asset_url',
-            'vars'     => array(),
-        );
+            'vars'     => [],
+        ];
 
         $stream = $this->parser->getStream();
         while (!$stream->test(\Twig_Token::BLOCK_END_TYPE)) {
@@ -139,12 +137,12 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
                 // debug=true
                 $stream->next();
                 $stream->expect(\Twig_Token::OPERATOR_TYPE, '=');
-                $attributes['debug'] = 'true' == $stream->expect(\Twig_Token::NAME_TYPE, array('true', 'false'))->getValue();
+                $attributes['debug'] = 'true' == $stream->expect(\Twig_Token::NAME_TYPE, ['true', 'false'])->getValue();
             } elseif ($stream->test(\Twig_Token::NAME_TYPE, 'combine')) {
                 // combine=true
                 $stream->next();
                 $stream->expect(\Twig_Token::OPERATOR_TYPE, '=');
-                $attributes['combine'] = 'true' == $stream->expect(\Twig_Token::NAME_TYPE, array('true', 'false'))->getValue();
+                $attributes['combine'] = 'true' == $stream->expect(\Twig_Token::NAME_TYPE, ['true', 'false'])->getValue();
             } elseif ($stream->test(\Twig_Token::NAME_TYPE, 'vars')) {
                 // vars=['locale','browser']
                 $stream->next();
@@ -174,12 +172,12 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
         }
         $stream->expect(\Twig_Token::BLOCK_END_TYPE);
 
-        $body = $this->parser->subparse(array($this, 'testEndTag'), true);
+        $body = $this->parser->subparse([$this, 'testEndTag'], true);
 
         $stream->expect(\Twig_Token::BLOCK_END_TYPE);
 
         if ($injectorLocation) {
-            $injectorLocationArray = explode(",", $injectorLocation);
+            $injectorLocationArray = explode(',', $injectorLocation);
 
             //INJECT
             foreach ($injectorLocationArray as $injectorLocation) {
@@ -187,7 +185,7 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
                 if (array_key_exists($this->tag, $this->injectedAssets) && in_array($injectorLocation, $injectorLocationsAvailables)) {
                     if (!empty($this->injectedAssets[$this->tag][$injectorLocation])) {
                         if (!is_array($this->injectedAssets[$this->tag][$injectorLocation])) {
-                            $this->injectedAssets[$this->tag][$injectorLocation] = array($this->injectedAssets[$this->tag][$injectorLocation]);
+                            $this->injectedAssets[$this->tag][$injectorLocation] = [$this->injectedAssets[$this->tag][$injectorLocation]];
                         }
                         $inputs = array_merge($inputs, $this->injectedAssets[$this->tag][$injectorLocation]);
                     }
@@ -202,7 +200,7 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
             $name = $this->factory->generateAssetName($inputs, $filters, $attributes);
         }
 
-        $asset = $this->factory->createAsset($inputs, $filters, $attributes + array('name' => $name));
+        $asset = $this->factory->createAsset($inputs, $filters, $attributes + ['name' => $name]);
 
         return $this->createNode($asset, $body, $inputs, $filters, $name, $attributes, $token->getLine(), $this->getTag());
     }

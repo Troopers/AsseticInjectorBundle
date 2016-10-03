@@ -1,17 +1,18 @@
 <?php
-namespace AppVentus\AsseticInjectorBundle\AssetsCollector;
+
+namespace Troopers\AsseticInjectorBundle\AssetsCollector;
 
 use Symfony\Component\Finder\Finder;
 
 /**
  * Assets collector.
  *
- * @author Paul Andrieux <paul@appventus.com>
+ * @author Paul Andrieux <paul@troopers.email>
  */
 class Collector
 {
     /**
-     * Constructor
+     * Constructor.
      *
      * @param Container $container The container
      */
@@ -21,7 +22,7 @@ class Collector
     }
 
     /**
-     * Inject the assets
+     * Inject the assets.
      *
      * @param \Twig_TokenParser $parser
      */
@@ -31,7 +32,7 @@ class Collector
     }
 
     /**
-     * Get the assets for each bundle
+     * Get the assets for each bundle.
      *
      * @return multitype:
      */
@@ -42,7 +43,7 @@ class Collector
         $rootDir = $this->container->get('kernel')->getRootDir();
         $appOverrideDir = '/Resources';
 
-        $resources = array();
+        $resources = [];
         $finder = new Finder();
         $finder->files()->name('assetic_injector.json');
         foreach ($this->container->get('kernel')->getBundles() as $bundle) {
@@ -66,9 +67,8 @@ class Collector
                     $finder->in($bundle->getPath().'/Resources/config/');
                 }
             }
-
         }
-        $injectArray = array();
+        $injectArray = [];
         foreach ($finder as $file) {
             $json = file_get_contents($file);
             if (is_array(json_decode($json, true))) {
@@ -77,7 +77,6 @@ class Collector
         }
 
         foreach ($injectArray as $engine => $assets) {
-
             $engine = $this->container->get('assetic_injector.'.$engine);
             $engine->compute($assets);
             $resources = array_merge_recursive($resources, $engine->getResources());
