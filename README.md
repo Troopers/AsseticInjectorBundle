@@ -1,7 +1,5 @@
-[![AppVentus](https://github.com/AppVentus/AvAlertifyBundle/blob/master/Media/appventus.png)](http://appventus.com)
+[![Troopers](https://cloud.githubusercontent.com/assets/618536/18787530/83cf424e-81a3-11e6-8f66-cde3ec5fa82a.png)](http://troopers.agency)
 
-
-[![Dependency Status](https://www.versioneye.com/php/appventus:assetic-injector-bundle/dev-master/badge.svg)](https://www.versioneye.com/php/appventus:assetic-injector-bundle/dev-master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/d10e1e8e-8bd5-462e-994f-419bcfb7da78/mini.png)](https://insight.sensiolabs.com/projects/d10e1e8e-8bd5-462e-994f-419bcfb7da78)
 
 =============
@@ -20,14 +18,14 @@ With Composer :
 
 Add this line in your composer.json file :
 
-    "appventus/assetic-injector-bundle": "dev-master"
+    "troopers/assetic-injector-bundle": "~1.0"
 
 Declare the bundle in your AppKernel.php:
 
     public function registerBundles() {
         $bundles = array(
             [...]
-            new AppVentus\AsseticInjectorBundle\AvAsseticInjectorBundle(),
+            new Troopers\AsseticInjectorBundle\TroopersAsseticInjectorBundle(),
             [...]
 
 Then declare an assetic_injector.json in the Resource/config folder of your application or bundle:

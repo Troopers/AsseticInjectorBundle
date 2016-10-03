@@ -1,6 +1,6 @@
 <?php
 
-namespace AppVentus\AsseticInjectorBundle\DependencyInjection;
+namespace Troopers\AsseticInjectorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('av_assetic_injector');
+        $treeBuilder->root('troopers_assetic_injector');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

@@ -1,28 +1,27 @@
 {
-    "name": "appventus/assetic-injector-bundle",
+    "name": "troopers/assetic-injector-bundle",
     "type": "symfony-bundle",
     "description": "This bundle allow you to define global javascripts and stylesheets",
     "keywords": ["assetic", "injector"],
-    "homepage": "http://appventus.com",
+    "homepage": "http://troopers.agency",
     "license": "MIT",
     "authors": [
         {
             "name": "Paul Andrieux",
-            "email": "paul@appventus.com"
+            "email": "paul@troopers.email"
         },
         {
             "name": "Leny Bernard",
-            "email": "leny@appventus.com"
+            "email": "leny@troopers.email"
         }
     ],
     "require": {
         "php": ">=5.3.2"
     },
     "autoload": {
-        "psr-0": { "AppVentus\\AsseticInjectorBundle": "" }
+        "psr-0": { "Troopers\\AsseticInjectorBundle": "" }
     },
-    "target-dir": "AppVentus/AsseticInjectorBundle",
-    "minimum-stability": "dev",
+    "target-dir": "Troopers/AsseticInjectorBundle",
     "extra"            : {
         "branch-alias": {
             "dev-master": "1.0.x-dev"

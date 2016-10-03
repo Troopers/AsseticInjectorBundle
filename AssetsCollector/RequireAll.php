@@ -1,5 +1,5 @@
 <?php
-namespace AppVentus\AsseticInjectorBundle\AssetsCollector;
+namespace Troopers\AsseticInjectorBundle\AssetsCollector;
 
 class RequireAll
 {

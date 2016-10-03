@@ -1,12 +1,12 @@
 <?php
-namespace AppVentus\AsseticInjectorBundle\AssetsCollector;
+namespace Troopers\AsseticInjectorBundle\AssetsCollector;
 
 use Symfony\Component\Finder\Finder;
 
 /**
  * Assets collector.
  *
- * @author Paul Andrieux <paul@appventus.com>
+ * @author Paul Andrieux <paul@troopers.email>
  */
 class Collector
 {

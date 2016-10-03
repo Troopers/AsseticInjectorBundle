@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace AppVentus\AsseticInjectorBundle\Twig;
+namespace Troopers\AsseticInjectorBundle\Twig;
 
 
 use Assetic\Extension\Twig\AsseticExtension as BaseAsseticExtension;
@@ -21,8 +21,8 @@ use Symfony\Component\Templating\TemplateNameParserInterface;
 /**
  * Assetic extension.
  *
- * @author Leny Bernard <leny@appventus.com>
- * @author Paul Andrieux <paul@appventus.com>
+ * @author Leny Bernard <leny@troopers.email>
+ * @author Paul Andrieux <paul@troopers.email>
  */
 class AsseticExtension extends BaseAsseticExtension implements \Twig_Extension_GlobalsInterface
 {

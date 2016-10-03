@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace AppVentus\AsseticInjectorBundle\Twig;
+namespace Troopers\AsseticInjectorBundle\Twig;
 
 use Assetic\Asset\AssetInterface;
 use Symfony\Bundle\AsseticBundle\Twig\AsseticTokenParser as BaseAsseticTokenParser;
@@ -20,8 +20,6 @@ use Symfony\Bundle\AsseticBundle\Twig\AsseticNode;
 
 /**
  * Assetic token parser.
- *
- * @author Kris Wallsmith <kris@symfony.com>
  */
 class AsseticInjectorTokenParser extends BaseAsseticTokenParser
 {
