@@ -1,14 +1,15 @@
 <?php
+
 namespace Troopers\AsseticInjectorBundle\AssetsCollector;
 
 class RequireAll
 {
-     protected $resources = array();
+    protected $resources = [];
 
     public function compute($item)
     {
-        foreach($item as $type => $resource) {
-            foreach($resource as $k => $path) {
+        foreach ($item as $type => $resource) {
+            foreach ($resource as $k => $path) {
                 $this->resources[$type][$k] = $path;
             }
         }
