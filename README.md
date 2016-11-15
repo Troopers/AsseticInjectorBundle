@@ -4,7 +4,7 @@
 [![Version](https://img.shields.io/packagist/v/troopers/assetic-injector-bundle.svg)](https://packagist.org/packages/troopers/assetic-injector-bundle)
 [![Packagist DL](https://img.shields.io/packagist/dt/troopers/assetic-injector-bundle.svg)](https://packagist.org/packages/troopers/assetic-injector-bundle)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/d10e1e8e-8bd5-462e-994f-419bcfb7da78/mini.png)](https://insight.sensiolabs.com/projects/d10e1e8e-8bd5-462e-994f-419bcfb7da78)
-[![Twitter Follow](https://img.shields.io/twitter/follow/troopersagency.svg?style=social&label=Follow%20Troopers)]()
+[![Twitter Follow](https://img.shields.io/twitter/follow/troopersagency.svg?style=social&label=Follow%20Troopers)](https://twitter.com/troopersagency)
 
 =============
 
