@@ -1,15 +1,15 @@
 parameters:
-    assetic.twig_extension.class: "Troopers\AsseticInjectorBundle\Twig\AsseticExtension"
-    troopers_assetic_injector.collector.class: "Troopers\AsseticInjectorBundle\AssetsCollector\Collector"
+    assetic.twig_extension.class: "Troopers\\AsseticInjectorBundle\\Twig\\AsseticExtension"
+    troopers_assetic_injector.collector.class: "Troopers\\AsseticInjectorBundle\\AssetsCollector\\Collector"
 
 services:
 
     troopers_assetic_injector.collector:
         class: %troopers_assetic_injector.collector.class%
-        arguments: [@service_container]
+        arguments: ["@service_container"]
 
     troopers_assetic_injector.collector_engine.require_all:
-        class: "Troopers\AsseticInjectorBundle\AssetsCollector\RequireAll"
+        class: "Troopers\\AsseticInjectorBundle\\AssetsCollector\\RequireAll"
 
     assetic_injector.require_all:
         alias: troopers_assetic_injector.collector_engine.require_all
@@ -20,6 +20,6 @@ services:
         tags:
             - {name: twig.extension}
             - {name: assetic.templating.twig}
-        arguments: [@assetic.asset_factory, @templating.name_parser, %assetic.use_controller%, %assetic.twig_extension.functions%, %assetic.bundles%, @assetic.value_supplier ]
+        arguments: ["@assetic.asset_factory", "@templating.name_parser", %assetic.use_controller%, %assetic.twig_extension.functions%, %assetic.bundles%, "@assetic.value_supplier" ]
         calls:
-            - [ setCollector, [ @troopers_assetic_injector.collector ] ]
+            - [ setCollector, [ "@troopers_assetic_injector.collector" ] ]
