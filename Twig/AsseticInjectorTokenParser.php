@@ -17,6 +17,7 @@ use Symfony\Bundle\AsseticBundle\Factory\AssetFactory;
 use Symfony\Bundle\AsseticBundle\Twig\AsseticNode;
 use Symfony\Bundle\AsseticBundle\Twig\AsseticTokenParser as BaseAsseticTokenParser;
 use Symfony\Component\Templating\TemplateNameParserInterface;
+use Symfony\Bundle\FrameworkBundle\Templating\TemplateReference;
 
 /**
  * Assetic token parser.
@@ -60,7 +61,7 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
             // check the bundle
             $templateRef = null;
             try {
-                $templateRef = $this->templateNameParser->parse($this->parser->getStream()->getFilename());
+                $templateRef = $this->templateNameParser->parse($this->parser->getStream()->getSourceContext()->getName());
             } catch (\RuntimeException $e) {
                 // this happens when the filename isn't a Bundle:* url
                 // and it contains ".."
@@ -68,11 +69,7 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
                 // this happens when the filename isn't a Bundle:* url
                 // but an absolute path instead
             }
-            try {
-                $bundle = $templateRef ? $templateRef->get('bundle') : null;
-            } catch (\InvalidArgumentException $e) {
-                $bundle = null;
-            }
+            $bundle = $templateRef instanceof TemplateReference ? $templateRef->get('bundle') : null;
             if ($bundle && !in_array($bundle, $this->enabledBundles)) {
                 throw new InvalidBundleException($bundle, "the {% {$this->getTag()} %} tag", $templateRef->getLogicalName(), $this->enabledBundles);
             }
@@ -81,7 +78,7 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
         return $this->parseAndInject($token);
     }
 
-    protected function createNode(AssetInterface $asset, \Twig_NodeInterface $body, array $inputs, array $filters, $name, array $attributes = [], $lineno = 0, $tag = null)
+    protected function createNode(AssetInterface $asset, \Twig_Node $body, array $inputs, array $filters, $name, array $attributes = [], $lineno = 0, $tag = null)
     {
         return new AsseticNode($asset, $body, $inputs, $filters, $name, $attributes, $lineno, $tag);
     }
