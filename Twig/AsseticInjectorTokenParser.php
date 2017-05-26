@@ -78,7 +78,7 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
         return $this->parseAndInject($token);
     }
 
-    protected function createNode(AssetInterface $asset, \Twig_Node $body, array $inputs, array $filters, $name, array $attributes = [], $lineno = 0, $tag = null)
+    protected function createBodyNode(AssetInterface $asset, \Twig_Node $body, array $inputs, array $filters, $name, array $attributes = array(), $lineno = 0, $tag = null)
     {
         return new AsseticNode($asset, $body, $inputs, $filters, $name, $attributes, $lineno, $tag);
     }
@@ -199,6 +199,6 @@ class AsseticInjectorTokenParser extends BaseAsseticTokenParser
 
         $asset = $this->factory->createAsset($inputs, $filters, $attributes + ['name' => $name]);
 
-        return $this->createNode($asset, $body, $inputs, $filters, $name, $attributes, $token->getLine(), $this->getTag());
+        return $this->createBodyNode($asset, $body, $inputs, $filters, $name, $attributes, $token->getLine(), $this->getTag());
     }
 }
