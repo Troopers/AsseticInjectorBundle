@@ -5,7 +5,7 @@ parameters:
 services:
 
     troopers_assetic_injector.collector:
-        class: %troopers_assetic_injector.collector.class%
+        class: '%troopers_assetic_injector.collector.class%'
         arguments: ["@service_container"]
 
     troopers_assetic_injector.collector_engine.require_all:
@@ -15,11 +15,11 @@ services:
         alias: troopers_assetic_injector.collector_engine.require_all
 
     assetic.twig_extension:
-        class: %assetic.twig_extension.class%
+        class: '%assetic.twig_extension.class%'
         public: false
         tags:
             - {name: twig.extension}
             - {name: assetic.templating.twig}
-        arguments: ["@assetic.asset_factory", "@templating.name_parser", %assetic.use_controller%, %assetic.twig_extension.functions%, %assetic.bundles%, "@assetic.value_supplier" ]
+        arguments: ["@assetic.asset_factory", "@templating.name_parser", '%assetic.use_controller%', '%assetic.twig_extension.functions%', '%assetic.bundles%', "@assetic.value_supplier" ]
         calls:
             - [ setCollector, [ "@troopers_assetic_injector.collector" ] ]
